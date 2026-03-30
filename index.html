@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tashi Beverages Limited - Premium Beverages Bhutan</title>
+    <meta name="description" content="Tashi Beverages Ltd - Leading Bhutanese producer of Coca-Cola, Fanta, Sprite, Charge Energy, Kinley Water. Quality beverages since 2007 from Pasakha Industrial Estate.">
+    <meta name="keywords" content="Tashi Beverages, Bhutan beverages, Coca-Cola Bhutan, Kinley water, soft drinks Bhutan, energy drinks">
+    <meta property="og:title" content="Tashi Beverages Limited">
+    <meta property="og:description" content="Premium quality beverages crafted in Bhutan since 2007">
+    <meta property="og:image" content="image/Tashi_group_company.png">
+    <meta property="og:url" content="https://tashibeverages.bt">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <style>
+        /* Simple modal styles for announcements/news detail view */
+        .modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.5); z-index: 9999; }
+        .modal.active { display: flex; }
+        .modal-content { position: relative; background: #fff; width: 90%; max-width: 720px; padding: 1.5rem; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .modal-close { position: absolute; top: 12px; right: 12px; background: transparent; border: none; font-size: 1.6rem; cursor: pointer; }
+        .modal .badge { display: inline-block; padding: 0.25rem 0.6rem; background: #667eea; color: #fff; border-radius: 6px; font-size: 0.85rem; margin-bottom: 0.5rem; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="brand-logo">
+                <img src="image/cocacola.png" alt="Tashi Beverages Logo" class="brand-img" style="height:48px; width:auto; display:inline-block; vertical-align:middle; margin-right:0.5rem;">
+                <div class="logo">TASHI BEVERAGES LIMITED</div>
+            </div> 
+            
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">HOME</a></li>
+                <li><a href="#products">PRODUCTS</a></li>
+                <li><a href="#announcements">ANNOUNCEMENTS</a></li>
+                <li><a href="gallery.html">GALLERY</a></li>
+                <li><a href="#about">ABOUT</a></li>
+                <li><a href="#contact">CONTACT</a></li>
+            </ul>
+
+            <img src="image/Tashi_group_company.png" alt="Coca-Cola Logo" class="brand-img navbar-coca" style="height:99px; width:auto;">
+
+<div class="mobile-menu" id="mobileMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-nav" id="mobileNav">
+            <ul class="mobile-nav-links">
+<li><a href="#home" class="mobile-nav-link">HOME</a></li>
+                <li><a href="#products" class="mobile-nav-link">PRODUCTS</a></li>
+                <li><a href="gallery.html" class="mobile-nav-link">GALLERY</a></li>
+                <li><a href="#announcements" class="mobile-nav-link">ANNOUNCEMENTS</a></li>
+                <li><a href="#about" class="mobile-nav-link">ABOUT</a></li>
+                <li><a href="#contact" class="mobile-nav-link">CONTACT</a></li>
+
+            </ul>
+            <div class="mobile-nav-footer">
+                <a href="admin-login.html" class="mobile-admin-btn">Admin Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Video Slider -->
+    <section id="home" class="hero">
+        <div class="hero-slider">
+            <div class="hero-slide active" style="background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('image/background.jpg'); background-size: cover; background-position: center;">
+                <div class="hero-content">
+                    <h1>Tashi Beverages Ltd</h1>
+                    <p>Crafting Premium Quality Beverages Since Excellence</p>
+                    <a href="#products" class="cta-button">Explore Our Products</a>
+                </div>
+            </div>
+            
+            <div class="hero-slide video-slide">
+                <div class="video-container">
+                    <video autoplay muted loop playsinline>
+                        <source src="video/Coca-Cola _ For Everyone _30.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="video-overlay">
+                        <div class="hero-content">
+                            <h1>Watch Our Story</h1>
+                            <p>Experience the journey of quality and excellence</p>
+                            <a href="#about" class="cta-button">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slider-nav">
+            <button class="nav-dot active" onclick="changeSlide(0)"></button>
+            <button class="nav-dot" onclick="changeSlide(1)"></button>
+        </div>
+        
+        <button class="slider-arrow prev" onclick="prevSlide()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="15,18 9,12 15,6"></polyline>
+            </svg>
+        </button>
+        <button class="slider-arrow next" onclick="nextSlide()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9,18 15,12 9,6"></polyline>
+            </svg>
+        </button>
+        
+        <button class="play-pause-btn" onclick="toggleAutoPlay()">
+            <svg class="pause-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <rect x="6" y="4" width="4" height="16"></rect>
+                <rect x="14" y="4" width="4" height="16"></rect>
+            </svg>
+            <svg class="play-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display: none;">
+                <polygon points="5,3 19,12 5,21"></polygon>
+            </svg>
+        </button>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="section products">
+        <div class="container">
+            <h2 class="section-title fade-in">Our Complete Product Range</h2>
+            <p class="section-subtitle fade-in">Discover our extensive collection of premium beverages</p>
+            
+            <div class="products-grid">
+                <div class="product-card fade-in" onclick="showCategoryProducts('soft-drinks')">
+                    <div class="product-icon" style="width:70px; height:70px; border-radius:50%; overflow:hidden; display:flex; align-items:center; justify-content:center; margin:0 auto;">
+                        <img src="image/coke logo.jpg" alt="Coke Logo" style="width:100%; height:100%; object-fit:cover; display:block;">
+                    </div>
+                    <h3>Soft Drinks</h3>
+                    <p>Refreshing carbonated beverages with natural flavors.</p>
+                    <div class="product-count">3 Products Available</div>
+                </div>
+                <div class="product-card fade-in" onclick="showCategoryProducts('energy-drinks')">
+                    <div class="product-icon" style="width:70px; height:70px; border-radius:50%; overflow:hidden; display:flex; align-items:center; justify-content:center; margin:0 auto;">
+                        <img src="image/charge logo.jpg" alt="Charge Logo" style="width:100%; height:100%; object-fit:cover; display:block;">
+                    </div>
+                    <h3>Energy Drinks</h3>
+                    <p>Boost your energy with our invigorating energy drinks.</p>
+                    <div class="product-count">1 Product Available</div>
+                </div>
+                <div class="product-card fade-in" onclick="showCategoryProducts('packaged-water')">
+                    <div class="product-icon" style="width:70px; height:70px; border-radius:50%; overflow:hidden; display:flex; align-items:center; justify-content:center; margin:0 auto;">
+                        <img src="image/kinley logo.png" alt="Kinley Logo" style="width:100%; height:100%; object-fit:cover; display:block;">
+                    </div>
+                    <h3>Packaged Water</h3>
+                    <p>Pure mineral water from pristine Himalayan springs.</p>
+                    <div class="product-count">2 Products Available</div>
+                </div>
+            </div>
+
+            <div id="allProductsContainer" style="display: none; margin-top: 2rem;">
+                <div class="products-filter">
+                    <h3 style="text-align: center; margin-bottom: 2rem; color: #667eea;">All Products</h3>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" onclick="filterProducts('all')">All Products</button>
+                        <button class="filter-btn" onclick="filterProducts('soft-drinks')">Soft Drinks</button>
+                        <button class="filter-btn" onclick="filterProducts('energy-drinks')">Energy Drinks</button>
+                        <button class="filter-btn" onclick="filterProducts('packaged-water')">Packaged Water</button>
+                    </div>
+                </div>
+                <div id="filteredProductsGrid" class="product-items-grid"></div>
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="cta-button" onclick="hideAllProducts()">Back to Categories</button>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem;">
+                <button class="cta-button" onclick="showAllProducts()" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                    View All Products
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">Our Services</h2>
+            <p class="section-subtitle fade-in">Comprehensive solutions for all your beverage needs</p>
+            <div class="services-grid">
+                <div class="service-card fade-in">
+                    <div class="service-icon">🏭</div>
+                    <h3>Manufacturing</h3>
+                    <p>State-of-the-art manufacturing facilities with strict quality control.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">📦</div>
+                    <h3>Distribution</h3>
+                    <p>Nationwide distribution network ensuring fresh products reach customers.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">🔬</div>
+                    <h3>Quality Assurance</h3>
+                    <p>Rigorous testing processes to ensure every product meets standards.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">🤝</div>
+                    <h3>Partnership</h3>
+                    <p>Strategic partnerships with retailers and distributors.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">About Tashi Beverages</h2>
+            <p class="section-subtitle fade-in">Leading the beverage industry with innovation, quality, and sustainability</p>
+            <div class="about-grid">
+                <div class="about-text fade-in">
+                    <h3>Our Story</h3>
+                    <p>Tashi Beverages Limited (TBL) is a proudly Bhutanese company under the Tashi Group of Companies, engaged in the production of high-quality bottled water and carbonated soft drinks. Since its establishment in 2007, the company has remained committed to delivering refreshing, safe, and reliable beverages to consumers across Bhutan. TBL upholds international production standards, emphasizes sustainable practices, and contributes meaningfully to the nation's industrial and economic progress.</p>
+                    <br>
+                    <p>We combine traditional craftsmanship with modern technology to ensure every product meets the highest standards of quality and taste. Our commitment to sustainability and community development drives everything we do.</p>
+                </div>
+                <div class="about-image fade-in">
+                    <img src="image/factory font.jpg" alt="Tashi Beverages Factory" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div style="display: none; align-items: center; justify-content: center; height: 100%; text-align: center;">
+                        <div>
+                            <h3>🏭</h3>
+                            <p>State-of-the-Art<br>Manufacturing Facility</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Announcements Section -->
+    <section id="announcements" class="section products">
+        <div class="container">
+            <h2 class="section-title fade-in">Latest Updates</h2>
+            <p class="section-subtitle fade-in">Stay informed with our latest announcements and news</p>
+            
+            <div class="announcement-tabs">
+                <button class="announcement-tab active" onclick="filterAnnouncements('all')">All Updates</button>
+                <button class="announcement-tab" onclick="filterAnnouncements('announcement')">Announcements</button>
+                <button class="announcement-tab" onclick="filterAnnouncements('news')">News</button>
+            </div>
+
+            <div id="announcementsGrid" class="announcements-grid"></div>
+
+            <div id="emptyState" style="display: none; text-align: center; padding: 2rem;">
+                <p style="color: #666; font-size: 1.1rem;">No announcements or news available at the moment.</p>
+                <p style="color: #999; margin-top: 0.5rem;">Check back soon for updates!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact">
+        <div class="container">
+            <h2 class="section-title" style="color: rgb(246, 239, 239);">Get In Touch</h2>
+            <p class="section-subtitle" style="color: rgba(247, 244, 244, 0.8);">Ready to partner with us or learn more?</p>
+            <div class="contact-grid">
+                <div class="contact-info fade-in">
+                    <h3>Contact Information</h3>
+                    <div class="contact-item">
+                        <i>📍</i>
+                        <div>
+                            <strong>Address:</strong><br>
+                            Tashi Beverages Ltd<br>
+                            Industrial Estate, Pasakha<br>
+                            Chhukha Bhutan
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i>📞</i>
+                        <div>
+                            <strong>Phone:</strong><br>
+                            +975-2-123456<br>
+                            +975-77888452
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i>📧</i>
+                        <div>
+                            <strong>Email:</strong><br>
+                            info@tashibeverages.bt<br>
+                            it@bhutancoke.com
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form fade-in">
+
+                        <input type="hidden" name="_subject" value="New Contact Form Submission">
+                        <input type="hidden" name="_captcha" value="false">
+
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" placeholder="Your full name" class="contact-inputs" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="your.email@example.com" class="contact-inputs" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" placeholder="How can we help you?" class="contact-inputs" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="4" placeholder="Tell us more..." class="contact-inputs" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+         <!-- Google Map Embed -->
+<div style="width:100%; height:350px; margin:1rem 0; border-radius:15px; overflow:hidden; box-shadow:0 5px 20px rgba(0,0,0,0.15);">
+
+    <iframe 
+        width="100%" 
+        height="100%" 
+        frameborder="0" 
+        style="border:0;" 
+        allowfullscreen 
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3712.249276202268!2d89.4453488!3d26.8411447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e235ad66493b55%3A0xbc37eef4af1a9a3d!2sTashi%20Beverages%20Ltd.!5e0!3m2!1sen!2sbt!4v1700000000000">
+    </iframe>
+</div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>Tashi Beverages Ltd</h3>
+                    <p>Premium Quality Beverages Since Excellence</p>
+                    <div class="footer-contact">
+                        <p>📍 Industrial Estate, Pasakha, Phuentsholing Bhutan</p>
+                        <p>📞 +975-17888452</p>
+                        <p>📧 admin@tashibeverages.bt</p>
+                    </div>
+                </div>
+                <div class="footer-social">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="https://facebook.com/tashibeverages" target="_blank" class="social-link facebook">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                            <span>Facebook</span>
+                        </a>
+                        <a href="https://instagram.com/tashibeverages" target="_blank" class="social-link instagram">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z"/>
+                            </svg>
+                            <span>Instagram</span>
+                        </a>
+                    </div>
+                    
+                    <div class="admin-access-buttons">
+                        <h4 style="margin-top: 1.5rem; margin-bottom: 1rem; color: rgb(255, 254, 254);">Admin Portal</h4>
+                        <div class="admin-buttons">
+                            <a href="admin-login.html" class="admin-btn login-btn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                                </svg>
+                                Admin Login
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-newsletter">
+                    <h3>Stay Updated</h3>
+                    <p>Subscribe to get latest updates</p>
+                    <form class="newsletter-form" id="newsletterForm">
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Tashi Beverages Ltd. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#privacy">Privacy Policy</a>
+                    <a href="#terms">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/script.js"></script>
+
+    <!-- Announcement / News Detail Modal -->
+    <div id="announcementModal" class="modal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-modal="true">
+            <button id="modalCloseBtn" class="modal-close" aria-label="Close">&times;</button>
+            <div id="modalBadge" class="badge" style="margin-bottom:0.5rem;"></div>
+            <h2 id="modalTitle" style="margin-top:0.25rem; margin-bottom:0.5rem;"></h2>
+            <div id="modalMeta" style="color:#666; font-size:0.9rem; margin-bottom:1rem;"></div>
+            <div id="modalContent" style="white-space:pre-line; line-height:1.6; color:#333;"></div>
+        </div>
+    </div>
+</body>
+</html>

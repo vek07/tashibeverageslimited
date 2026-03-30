@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Tashi Beverages Ltd</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gallery-hero {
+            height: 60vh;
+            background: linear-gradient(135deg, rgba(102,126,234,0.8), rgba(118,75,162,0.6)), url('image/factory production.webp');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: var(--nav-height, 80px);
+        }
+        .gallery-hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); margin-bottom: 1rem; }
+        .gallery-hero p { font-size: clamp(1.1rem, 3vw, 1.4rem); max-width: 600px; }
+        
+        .filters {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .gallery-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .gallery-item {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .gallery-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+        .gallery-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        .gallery-info {
+            padding: 1.25rem;
+        }
+        .gallery-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #1a202c;
+        }
+        .gallery-desc {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        .gallery-count {
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            padding: 2rem;
+        }
+        .lightbox.active {
+            display: flex;
+        }
+        .lightbox-img {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .lightbox-nav:hover {
+            background: rgba(255,255,255,0.4);
+        }
+        .lightbox-prev { left: 2rem; }
+        .lightbox-next { right: 2rem; }
+        .lightbox-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .lightbox-caption {
+            color: white;
+            text-align: center;
+            margin-top: 1rem;
+            max-width: 90vw;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 1rem;
+                padding: 1rem;
+            }
+            .filters {
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="brand-logo">
+                <img src="image/cocacola.png" alt="Tashi Beverages Logo" class="brand-img">
+                <div class="logo">TASHI BEVERAGES LIMITED</div>
+            </div> 
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#products">Products</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="index.html#announcements">Announcements</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="gallery-hero">
+        <div>
+            <h1>Gallery</h1>
+            <p>Capture the moments that define Tashi Beverages</p>
+        </div>
+    </section>
+
+    <!-- Filters -->
+    <div class="filters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="Events">Events</button>
+        <button class="filter-btn" data-filter="Factory">Factory</button>
+        <button class="filter-btn" data-filter="Products">Products</button>
+        <button class="filter-btn" data-filter="Team">Team</button>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div class="gallery-grid" id="galleryGrid">
+        <!-- Dynamic content -->
+        <div class="loading">Loading gallery...</div>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="lightbox">
+        <img id="lightboxImg" class="lightbox-img" alt="">
+        <button class="lightbox-prev" onclick="changeLightbox(-1)"><i class="fas fa-chevron-left"></i></button>
+        <button class="lightbox-next" onclick="changeLightbox(1)"><i class="fas fa-chevron-right"></i></button>
+        <button class="lightbox-close" onclick="closeLightbox()"><i class="fas fa-times"></i></button>
+        <p id="lightboxCaption" class="lightbox-caption"></p>
+    </div>
+
+    <script>
+        let galleries = [];
+        let currentIndex = 0;
+        let currentGallery = null;
+
+        // Load galleries from backend
+async function loadGalleries() {
+            try {
+                const response = await fetch('http://localhost:4000/api/gallery');
+                galleries = await response.json();
+                renderGalleries();
+            } catch (err) {
+                console.error('Gallery load error:', err);
+                // Offline fallback sample data
+                galleries = [
+                    {
+                        title: 'Factory Tour',
+                        category: 'Factory',
+                        images: [
+                            {url: 'image/factory production.webp', alt: 'Production line'},
+                            {url: 'image/factory font.jpg', alt: 'Factory exterior'}
+                        ]
+                    },
+                    {
+                        title: 'Launch Event',
+                        category: 'Events',
+                        images: [
+                            {url: 'image/charge logo.jpg', alt: 'Charge launch'},
+                            {url: 'image/coke logo.jpg', alt: 'Coca-Cola event'}
+                        ]
+                    }
+                ];
+                renderGalleries();
+            }
+        }
+
+        function renderGalleries() {
+            const grid = document.getElementById('galleryGrid');
+            grid.innerHTML = '';
+
+            galleries.forEach((gallery, idx) => {
+                const item = document.createElement('div');
+                item.className = 'gallery-item';
+                item.onclick = () => openLightbox(idx);
+                
+                const thumb = gallery.images[0] || {};
+                item.innerHTML = `
+                    <img src="${thumb.url}" alt="${thumb.alt || gallery.title}" class="gallery-image">
+                    <div class="gallery-info">
+                        <h3 class="gallery-title">${gallery.title}</h3>
+                        <p class="gallery-desc">${gallery.description || gallery.category}</p>
+                        <div class="gallery-count">${gallery.images.length} photos</div>
+                    </div>
+                `;
+                grid.appendChild(item);
+            });
+        }
+
+        // Lightbox
+        function openLightbox(galleryIdx) {
+            currentGallery = galleries[galleryIdx];
+            currentIndex = 0;
+            document.getElementById('lightbox').classList.add('active');
+            showLightboxImage();
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+
+        function showLightboxImage() {
+            const img = document.getElementById('lightboxImg');
+            const caption = document.getElementById('lightboxCaption');
+            const image = currentGallery.images[currentIndex];
+            
+            img.src = image.url;
+            img.alt = image.alt || '';
+            caption.textContent = image.caption || currentGallery.title;
+        }
+
+        function changeLightbox(dir) {
+            currentIndex += dir;
+            if (currentIndex < 0) currentIndex = currentGallery.images.length - 1;
+            if (currentIndex >= currentGallery.images.length) currentIndex = 0;
+            showLightboxImage();
+        }
+
+        // Filters
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.onclick = (e) => {
+                document.querySelector('.filter-btn.active').classList.remove('active');
+                e.target.classList.add('active');
+                
+                const filter = e.target.dataset.filter;
+                const filtered = filter === 'all' 
+                    ? galleries 
+                    : galleries.filter(g => g.category === filter);
+                
+                renderFiltered(filtered);
+            }
+        });
+
+        function renderFiltered(filtered) {
+            const grid = document.getElementById('galleryGrid');
+            grid.innerHTML = '';
+            
+            filtered.forEach((gallery, idx) => {
+                const globalIdx = galleries.findIndex(g => g._id === gallery._id);
+                const item = document.createElement('div');
+                item.className = 'gallery-item';
+                item.onclick = () => openLightbox(globalIdx);
+                // ... same as renderGalleries
+            });
+        }
+
+        // Close lightbox on ESC/click outside
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        document.getElementById('lightbox').onclick = (e) => {
+            if (e.target.classList.contains('lightbox')) closeLightbox();
+        };
+
+        // Mobile menu + nav
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+        mobileMenu.onclick = (e) => {
+            e.stopPropagation();
+            navLinks.classList.toggle('open');
+            mobileMenu.classList.toggle('open');
+        };
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !mobileMenu.contains(e.target)) {
+                navLinks.classList.remove('open');
+                mobileMenu.classList.remove('open');
+            }
+        });
+
+        // Load on start
+        loadGalleries();
+    </script>
+</body>
+</html>

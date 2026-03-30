@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Tashi Beverages ltd</title>
+<link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/product-details.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            background: white;
+            padding: clamp(1rem, 2vw, 2rem);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            font-weight: bold;
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .back-button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: clamp(0.6rem, 2vw, 0.7rem) clamp(1rem, 3vw, 1.5rem);
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            white-space: nowrap;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .back-button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: clamp(1rem, 3vw, 2rem);
+        }
+
+        .product-container {
+            background: rgb(252, 252, 252);
+            border-radius: 20px;
+            padding: clamp(1rem, 3vw, 2rem);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+        }
+
+        .breadcrumb {
+            margin-bottom: 2rem;
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+            color: #666;
+            overflow-x: auto;
+        }
+
+        .breadcrumb a {
+            color: #667eea;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .product-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(1.5rem, 3vw, 3rem);
+            margin-bottom: 3rem;
+            align-items: start;
+        }
+
+        @media (max-width: 768px) {
+            .product-header {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        .product-image-section {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .product-image {
+            width: 100%;
+            height: clamp(300px, 60vw, 400px);
+            background: linear-gradient(135deg, #ffffff, #f7f7f7);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(3rem, 8vw, 5rem);
+            color: white;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.574);
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 15px;
+        }
+
+        .product-info h1 {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            margin-bottom: 0.5rem;
+            color: #1a202c;
+        }
+
+        .product-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .category-badge {
+            background: #667eea;
+            color: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 25px;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            font-weight: 500;
+        }
+
+        .availability {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            color: #28a745;
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+        }
+
+        .description {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            font-size: clamp(0.95rem, 2vw, 1.05rem);
+        }
+
+        /* Size Selector Dropdown */
+        .size-dropdown-section {
+            background: #f9f9f9;
+            padding: clamp(1rem, 3vw, 2rem);
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .dropdown-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-header:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+        }
+
+        .dropdown-header.active {
+            border-color: #667eea;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+        }
+
+        .dropdown-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 600;
+            color: #1a202c;
+            font-size: clamp(1rem, 3vw, 1.2rem);
+        }
+
+        .dropdown-icon {
+            transition: transform 0.3s ease;
+            color: #667eea;
+        }
+
+        .dropdown-header.active .dropdown-icon {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            margin-top: 0;
+        }
+
+        .dropdown-content.active {
+            max-height: 600px;
+            margin-top: 1rem;
+        }
+
+        .sizes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            animation: slideDown 0.3s ease;
+        }
+
+        @media (min-width: 480px) {
+            .sizes-grid {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            }
+        }
+
+        @media (min-width: 768px) {
+            .sizes-grid {
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .size-option {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: clamp(0.9rem, 2vw, 1.2rem);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .size-option:hover {
+            border-color: #667eea;
+            box-shadow: 0 6px 15px rgba(102, 126, 234, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .size-option.selected {
+            border-color: #667eea;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.1));
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.25);
+        }
+
+        .size-option.selected::before {
+            content: '✓';
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 24px;
+            height: 24px;
+            background: #667eea;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .bottle-icon {
+            font-size: clamp(2rem, 6vw, 3rem);
+            transition: all 0.3s ease;
+            display: block;
+        }
+
+        .size-option.selected .bottle-icon {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 8px rgba(102, 126, 234, 0.5));
+        }
+
+        .size-label {
+            font-size: clamp(0.95rem, 3vw, 1.1rem);
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+
+        .size-price-original {
+            font-size: clamp(0.7rem, 2vw, 0.8rem);
+            color: #999;
+            text-decoration: line-through;
+            margin-bottom: 0.2rem;
+        }
+
+        .size-price {
+            font-size: clamp(1.1rem, 3vw, 1.4rem);
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+
+        .size-stock {
+            font-size: clamp(0.7rem, 2vw, 0.8rem);
+            color: #28a745;
+            font-weight: 500;
+        }
+
+        .selected-size-display {
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            color: #667eea;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        /* Product Details in Dropdown */
+        .dropdown-product-details {
+            background: white;
+            border-radius: 10px;
+            padding: clamp(1rem, 2vw, 1.5rem);
+            margin-top: 1.5rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        .dropdown-details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .dropdown-details-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .detail-item {
+            text-align: center;
+            padding: 0.75rem;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .detail-label {
+            font-size: clamp(0.7rem, 2vw, 0.8rem);
+            color: #667eea;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .detail-value {
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+            color: #333;
+            font-weight: 500;
+        }
+
+        .dropdown-description {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.05));
+            padding: clamp(1rem, 2vw, 1.5rem);
+            border-radius: 10px;
+            margin-top: 1rem;
+            border-left: 4px solid #667eea;
+        }
+
+        .dropdown-description-title {
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .dropdown-description-text {
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+            color: #555;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 480px) {
+            .size-dropdown-section {
+                padding: 1rem;
+            }
+
+            .sizes-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
+        }
+
+
+
+        .details-section {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid #eee;
+        }
+
+        .details-section h2 {
+            font-size: clamp(1.5rem, 4vw, 1.8rem);
+            margin-bottom: 1rem;
+            color: #1a202c;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        @media (min-width: 480px) {
+            .details-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 768px) {
+            .details-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 2rem;
+            }
+        }
+
+        .detail-card {
+            background: #f9f9f9;
+            padding: clamp(1rem, 2vw, 1.5rem);
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .detail-card h3 {
+            font-size: clamp(0.8rem, 2vw, 0.95rem);
+            color: #667eea;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .detail-card p {
+            color: #555;
+            line-height: 1.6;
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+        }
+
+        .related-products {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 2px solid #eee;
+        }
+
+        .related-products h2 {
+            font-size: clamp(1.5rem, 4vw, 1.8rem);
+            margin-bottom: 1.5rem;
+            color: #1a202c;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 480px) {
+            .related-grid {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            }
+        }
+
+        @media (min-width: 768px) {
+            .related-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+
+        .related-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .related-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .related-image {
+            width: 100%;
+            height: clamp(120px, 30vw, 150px);
+            background: linear-gradient(135deg, #d3d5dd, #b2adb81e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            color: white;
+        }
+
+        .related-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .related-info {
+            padding: clamp(0.75rem, 2vw, 1rem);
+        }
+
+        .related-info h4 {
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .related-price {
+            color: #667eea;
+            font-weight: bold;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+        }
+
+        .alert {
+            padding: clamp(0.75rem, 2vw, 1rem);
+            background: #fff3cd;
+            color: #856404;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .product-container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="index.html" class="nav-brand">
+            <i class="fas fa-wine-bottle"></i>
+            <span>Our Products</span>
+        </a>
+        <a href="index.html#products" class="back-button" id="backButton">
+            <i class="fas fa-arrow-left"></i> <span>Back</span>
+        </a>
+    </div>
+
+    <div class="container">
+        <div class="product-container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> / 
+                <a href="index.html#products">Product</a> / 
+                <span id="breadcrumbName">Product</span>
+            </div>
+
+            <div class="alert" id="alertBox"></div>
+
+            <div class="product-header">
+                <div class="product-image-section">
+                    <div class="product-image" id="productImage">🥤</div>
+                </div>
+                <div class="product-info">
+                    <h1 id="productName">Product Name</h1>
+                    <div class="product-meta">
+                        <span class="category-badge" id="productCategory">Category</span>
+                        <div class="availability">
+                            <i class="fas fa-check-circle"></i>
+                            <span>In Stock</span>
+                        </div>
+                    </div>
+
+                    <p class="description" id="productDescription">Product description</p>
+
+                    <!-- Size Dropdown Section -->
+                    <div class="size-dropdown-section">
+                        <div class="dropdown-header" id="dropdownToggle">
+                            <div class="dropdown-title">
+                                <i class="fas fa-cube"></i>
+                                <span>Available Sizes & Prices</span>
+                            </div>
+                            <i class="fas fa-chevron-down dropdown-icon"></i>
+                        </div>
+
+                        <div class="dropdown-content" id="dropdownContent">
+                            <div class="sizes-grid" id="variantsGrid">
+                                <!-- Variants will be loaded here -->
+                            </div>
+                            <div class="selected-size-display" id="selectedSizeDisplay" style="display: none;">
+                                Selected: <span id="selectedSizeText"></span>
+                            </div>
+
+                            <!-- Product Details in Dropdown -->
+                            <div class="dropdown-product-details" id="dropdownProductDetails">
+                                <div class="dropdown-details-grid">
+                                    <div class="detail-item">
+                                        <span class="detail-label">Type</span>
+                                        <div class="detail-value" id="dropdownType">Beverage</div>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Category</span>
+                                        <div class="detail-value" id="dropdownCategory">Category</div>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Status</span>
+                                        <div class="detail-value" style="color: #28a745;">In Stock</div>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Quality</span>
+                                        <div class="detail-value" id="dropdownQuality">ISO Certified</div>
+                                    </div>
+                                </div>
+
+                                <div class="dropdown-description">
+                                    <div class="dropdown-description-title">📝 Product Description</div>
+                                    <div class="dropdown-description-text" id="dropdownDescText">Product description</div>
+                                </div>
+
+                                <div class="dropdown-description">
+                                    <div class="dropdown-description-title">🥗 Ingredients</div>
+                                    <div class="dropdown-description-text" id="dropdownIngredients">Natural ingredients</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="details-section">
+                <h2>Product Details</h2>
+                <div class="details-grid">
+                    <div class="detail-card">
+                        <h3><i class="fas fa-cube"></i> Type</h3>
+                        <p id="detailType">Beverage</p>
+                    </div>
+                    <div class="detail-card">
+                        <h3><i class="fas fa-droplet"></i> Size</h3>
+                        <p id="detailVolume">Select a size</p>
+                    </div>
+                    <div class="detail-card">
+                        <h3><i class="fas fa-leaf"></i> Ingredients</h3>
+                        <p id="detailIngredients">Natural flavors and pure water</p>
+                    </div>
+                    <div class="detail-card">
+                        <h3><i class="fas fa-shield"></i> Quality</h3>
+                        <p id="detailQuality">Meets all international standards</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="related-products">
+            <h2>Other Products</h2>
+            <div class="related-grid" id="relatedGrid"></div>
+        </div>
+    </div>
+
+    <script>
+        let selectedVariant = null;
+
+        const productVariants = {
+            'coca-cola': [
+                { size: '250ml', price: 25, originalPrice: 25 },
+                { size: '330ml', price: 30, originalPrice: 30 },
+                { size: '500ml', price: 35, originalPrice: 40 },
+                { size: '1L', price: 60, originalPrice: 70 },
+                { size: '2L', price: 110, originalPrice: 130 }
+            ],
+            'fanta': [
+                { size: '250ml', price: 18, originalPrice: 22 },
+                { size: '330ml', price: 22, originalPrice: 27 },
+                { size: '500ml', price: 32, originalPrice: 38 },
+                { size: '1L', price: 55, originalPrice: 65 }
+            ],
+            'sprite': [
+                { size: '250ml', price: 18, originalPrice: 22 },
+                { size: '330ml', price: 22, originalPrice: 27 },
+                { size: '500ml', price: 32, originalPrice: 38 },
+                { size: '1L', price: 55, originalPrice: 65 }
+            ],
+            'charge': [
+                { size: '200ml', price: 50, originalPrice: 60 },
+                { size: '250ml', price: 60, originalPrice: 75 },
+                { size: '500ml', price: 110, originalPrice: 130 }
+            ],
+            'kinley': [
+                { size: '500ml', price: 5, originalPrice: null },
+                { size: '1L', price: 10, originalPrice: null },
+                { size: '2L', price: 18, originalPrice: null }
+            ],
+            'sparkling': [
+                { size: '500ml', price: 25, originalPrice: 32 },
+                { size: '1L', price: 45, originalPrice: 55 }
+            ]
+        };
+
+        const productData = {
+            'coca-cola': {
+                name: 'Coca-Cola',
+                category: 'Soft Drinks',
+                description: 'The original and iconic cola taste that has delighted consumers worldwide for generations. Coca-Cola Classic delivers the perfect balance of refreshment and taste.',
+                image: 'image/coca-cola-bottles.webp',
+                type: 'Soft Drink',
+                ingredients: 'Carbonated water, high fructose corn syrup, caramel coloring, phosphoric acid, caffeine',
+                quality: 'ISO 9001 Certified'
+            },
+            'fanta': {
+                name: 'Fanta Orange',
+                category: 'Soft Drinks',
+                description: 'Bursting with real orange flavor and vibrant taste. Fanta brings fun and excitement to every sip.',
+                image: 'image/fanta-bottles.webp',
+                type: 'Soft Drink',
+                ingredients: 'Carbonated water, high fructose corn syrup, orange juice concentrate, artificial flavors',
+                quality: 'ISO 9001 Certified'
+            },
+            'sprite': {
+                name: 'Sprite',
+                category: 'Soft Drinks',
+                description: 'Crisp lemon-lime taste that refreshes and invigorates. Pure, clean refreshment.',
+                image: 'image/sprite-bottle.webp',
+                type: 'Soft Drink',
+                ingredients: 'Carbonated water, high fructose corn syrup, citric acid, lemon and lime flavors',
+                quality: 'ISO 9001 Certified'
+            },
+            'charge': {
+                name: 'Charge Energy Drink',
+                category: 'Energy Drinks',
+                description: 'Energy drink with a unique blend of ingredients designed to boost your energy.',
+                image: 'image/charge-bottel.png',
+                type: 'Energy Drink',
+                ingredients: 'Taurine, caffeine, B vitamins, guarana extract, sugar',
+                quality: 'ISO 9001 Certified'
+            },
+            'kinley': {
+                name: 'Kinley Water',
+                category: 'Water',
+                description: 'Pure spring water from pristine Himalayan springs.',
+                image: 'image/kinley-bottle.avif',
+                type: 'Mineral Water',
+                ingredients: 'Pure spring water with natural minerals',
+                quality: 'WHO Standards'
+            },
+            'soda-water': {
+                name: 'Soda Water',
+                category: 'Water',
+                description: 'Naturally carbonated mineral water with a refreshing fizz.',
+                image: 'image/soda-bottel.png',
+                type: 'Soda Water',
+                ingredients: 'Pure mineral water with natural carbonation',
+                quality: 'WHO Standards'
+            }
+        };
+
+        function getProductIdFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('product');
+        }
+          const dropdownToggle = document.getElementById("dropdownToggle");
+          const dropdownContent = document.getElementById("dropdownContent");
+
+            dropdownToggle.addEventListener("click", () => {
+                dropdownToggle.classList.toggle("active");
+                dropdownContent.classList.toggle("active");
+            });
+        function displayProduct() {
+            const productId = getProductIdFromUrl();
+            
+            if (!productId || !productData[productId]) {
+                document.body.innerHTML = '<div style="text-align: center; padding: 4rem 2rem; font-size: clamp(1.2rem, 4vw, 1.5rem); color: #666;"><p>Product not found.</p><a href="index.html" style="color: #667eea; text-decoration: none;">Back to Home</a></div>';
+                return;
+            }
+
+            const product = productData[productId];
+            const variants = productVariants[productId] || [];
+
+            document.getElementById('productImage').innerHTML = `<img src="${product.image}" alt="${product.name}">`;
+            document.getElementById('productName').textContent = product.name;
+            document.getElementById('breadcrumbName').textContent = product.name;
+            document.getElementById('productCategory').textContent = product.category;
+            document.getElementById('productDescription').textContent = product.description;
+            document.getElementById('detailType').textContent = product.type;
+            document.getElementById('detailIngredients').textContent = product.ingredients;
+            document.getElementById('detailQuality').textContent = product.quality;
+
+            displayVariants(variants);
+            displayRelatedProducts(productId);
+        }
+
+        function displayVariants(variants) {
+            const grid = document.getElementById('variantsGrid');
+            grid.innerHTML = '';
+
+            variants.forEach((variant, index) => {
+                const card = document.createElement('div');
+                card.className = 'variant-card';
+                if (index === 0) card.classList.add('selected');
+                
+                let priceHTML = `<div class="variant-price">Nu. ${variant.price}</div>`;
+                if (variant.originalPrice) {
+                    priceHTML = `<div class="variant-original-price">Nu. ${variant.originalPrice}</div>${priceHTML}`;
+                }
+
+                card.innerHTML = `
+                    <div class="variant-size">${variant.size}</div>
+                    ${priceHTML}
+                    <div class="variant-stock">In Stock</div>
+                `;
+
+                card.addEventListener('click', () => selectVariant(variant, card));
+                grid.appendChild(card);
+            });
+
+            if (variants.length > 0) {
+                selectedVariant = variants[0];
+                document.getElementById('detailVolume').textContent = variants[0].size;
+            }
+        }
+
+        function selectVariant(variant, cardElement) {
+            document.querySelectorAll('.variant-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+
+            cardElement.classList.add('selected');
+            selectedVariant = variant;
+            document.getElementById('detailVolume').textContent = variant.size;
+            document.getElementById('quantityValue').value = 1;
+        }
+
+        function displayRelatedProducts(currentProductId) {
+            const relatedGrid = document.getElementById('relatedGrid');
+            relatedGrid.innerHTML = '';
+
+            const allProducts = Object.entries(productData).filter(([id]) => id !== currentProductId);
+
+            allProducts.forEach(([id, product]) => {
+                const card = document.createElement('a');
+                card.href = `product-details.html?product=${id}`;
+                card.className = 'related-card';
+                const mediaHTML = product.image ? `<img src="${product.image}" alt="${product.name}">` : '🥤';
+
+                card.innerHTML = `
+                    <div class="related-image">${mediaHTML}</div>
+                    <div class="related-info">
+                        <h4>${product.name}</h4>
+                        <div class="related-price">View</div>
+                    </div>
+                `;
+                relatedGrid.appendChild(card);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', displayProduct);
+
+        (function() {
+            const backBtn = document.getElementById('backButton');
+            if (!backBtn) return;
+            backBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = 'index.html#products';
+            });
+        })();
+    </script>
+</body>
+</html>

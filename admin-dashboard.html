@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Tashi Beverages</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <i class="fas fa-wine-bottle"></i>
+                <h2>Tashi Beverages</h2>
+            </div>
+        </div>
+
+        <div class="user-profile">
+            <div class="user-avatar" id="userAvatar">A</div>
+            <div class="user-info">
+                <h4 id="userName">Admin</h4>
+                <div class="user-role" id="userRole">Administrator</div>
+            </div>
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="#" class="nav-link active" data-section="dashboard">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item" id="productsNav" style="display: none;">
+                <a href="#" class="nav-link" data-section="products">
+                    <i class="fas fa-box"></i>
+                    <span>Products</span>
+                </a>
+            </li>
+            <li class="nav-item" id="newsNav" style="display: none;">
+                <a href="#" class="nav-link" data-section="news">
+                    <i class="fas fa-newspaper"></i>
+                    <span>News</span>
+                </a>
+            </li>
+            <li class="nav-item" id="announcementsNav" style="display: none;">
+                <a href="#" class="nav-link" data-section="announcements">
+                    <i class="fas fa-bullhorn"></i>
+                    <span>Announcements</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-section="settings">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Navbar -->
+        <nav class="top-navbar">
+            <div class="page-title">
+                <button class="mobile-menu-btn" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div>
+                    <h1 id="pageTitle">Dashboard</h1>
+                    <p id="pageSubtitle">Welcome back!</p>
+                </div>
+            </div>
+            <div class="top-actions">
+                <div class="notification-icon">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge" id="notifBadge">0</span>
+                </div>
+                <button class="btn-logout" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Dashboard Content -->
+        <div class="dashboard-content">
+            <!-- Dashboard Section -->
+            <div class="content-section active" id="dashboardSection">
+                <div class="stats-grid">
+                    <div class="stat-card" onclick="navigateTo('products')">
+                        <div class="stat-info">
+                            <h3 id="totalProducts">0</h3>
+                            <p>Total Products</p>
+                        </div>
+                        <div class="stat-icon products">
+                            <i class="fas fa-box"></i>
+                        </div>
+                    </div>
+                    <div class="stat-card" onclick="navigateTo('news')">
+                        <div class="stat-info">
+                            <h3 id="totalNews">0</h3>
+                            <p>News Articles</p>
+                        </div>
+                        <div class="stat-icon news">
+                            <i class="fas fa-newspaper"></i>
+                        </div>
+                    </div>
+                    <div class="stat-card" onclick="navigateTo('announcements')">
+                        <div class="stat-info">
+                            <h3 id="totalAnnouncements">0</h3>
+                            <p>Announcements</p>
+                        </div>
+                        <div class="stat-icon announcements">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3 id="activeProducts">0</h3>
+                            <p>Active Products</p>
+                        </div>
+                        <div class="stat-icon active">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="margin-bottom: 1.5rem; font-size: 1.25rem;">Quick Actions</h3>
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <button class="btn-primary" onclick="showProductModal()" id="quickAddProduct" style="display: none;">
+                            <i class="fas fa-plus"></i> Add Product
+                        </button>
+                        <button class="btn-primary" onclick="showNewsModal()" id="quickAddNews" style="display: none;">
+                            <i class="fas fa-newspaper"></i> Create News
+                        </button>
+                        <button class="btn-primary" onclick="showAnnouncementModal()" id="quickAddAnnouncement" style="display: none;">
+                            <i class="fas fa-bullhorn"></i> Post Announcement
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products Section -->
+            <div class="content-section" id="productsSection">
+                <div class="section-header">
+                    <h2>Product Management</h2>
+                    <button class="btn-primary" onclick="showProductModal()">
+                        <i class="fas fa-plus"></i> Add New Product
+                    </button>
+                </div>
+                <div class="card">
+                    <div id="productsTableContainer">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>Price</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productsTableBody"></tbody>
+                        </table>
+                    </div>
+                    <div id="productsEmpty" class="empty-state hidden">
+                        <i class="fas fa-box-open"></i>
+                        <h3>No Products Yet</h3>
+                        <p>Start by adding your first product</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- News Section -->
+            <div class="content-section" id="newsSection">
+                <div class="section-header">
+                    <h2>News Management</h2>
+                    <button class="btn-primary" onclick="showNewsModal()">
+                        <i class="fas fa-plus"></i> Create News
+                    </button>
+                </div>
+                <div class="card">
+                    <div id="newsTableContainer">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Category</th>
+                                    <th>Author</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="newsTableBody"></tbody>
+                        </table>
+                    </div>
+                    <div id="newsEmpty" class="empty-state hidden">
+                        <i class="fas fa-newspaper"></i>
+                        <h3>No News Articles</h3>
+                        <p>Create your first news article</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Announcements Section -->
+            <div class="content-section" id="announcementsSection">
+                <div class="section-header">
+                    <h2>Announcements</h2>
+                    <button class="btn-primary" onclick="showAnnouncementModal()">
+                        <i class="fas fa-plus"></i> Post Announcement
+                    </button>
+                </div>
+                <div class="card">
+                    <div id="announcementsTableContainer">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Priority</th>
+                                    <th>Category</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="announcementsTableBody"></tbody>
+                        </table>
+                    </div>
+                    <div id="announcementsEmpty" class="empty-state hidden">
+                        <i class="fas fa-bullhorn"></i>
+                        <h3>No Announcements</h3>
+                        <p>Post your first announcement</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Section -->
+            <div class="content-section" id="settingsSection">
+                <h2 style="margin-bottom: 1.5rem;">Account Settings</h2>
+                <div class="card">
+                    <form id="settingsForm">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" class="form-control" id="settingsName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" class="form-control" id="settingsEmail">
+                        </div>
+                        <div class="form-group">
+                            <label>Role</label>
+                            <input type="text" class="form-control" id="settingsRole" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Current Password</label>
+                            <input type="password" class="form-control" id="currentPassword">
+                        </div>
+                        <div class="form-group">
+                            <label>New Password</label>
+                            <input type="password" class="form-control" id="newPassword">
+                        </div>
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-save"></i> Save Changes
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Product Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="productModalTitle">Add New Product</h3>
+                <button class="btn-close" onclick="closeModal('productModal')">&times;</button>
+            </div>
+            <form id="productForm">
+                <div class="modal-body">
+                    <input type="hidden" id="productId">
+                    
+                    <!-- Image Upload Section -->
+                    <div class="form-group">
+                        <label>Product Image *</label>
+                        <div class="file-upload-area" id="fileUploadArea">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Click or drag image here</p>
+                            <small>Supports: JPG, PNG, GIF (Max 2MB)</small>
+                            <input type="file" id="productImageFile" accept="image/*" style="display: none;">
+                        </div>
+                        <div class="image-preview-container" id="imagePreviewContainer">
+                            <img id="imagePreview" style="display: none; max-width: 200px; margin-top: 1rem; border-radius: 8px;">
+                            <button type="button" class="btn-remove-image" id="btnRemoveImage" style="display: none;" onclick="removeProductImage()">
+                                <i class="fas fa-times"></i> Remove
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Product Name *</label>
+                        <input type="text" class="form-control" id="productName" placeholder="Enter product name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Category *</label>
+                        <select class="form-control" id="productCategory" required>
+                            <option value="">Select Category</option>
+                            <option value="soft-drinks">Soft Drinks</option>
+                            <option value="energy-drinks">Energy Drinks</option>
+                            <option value="packaged-water">Packaged Water</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Price (Nu.) *</label>
+                        <input type="number" class="form-control" id="productPrice" placeholder="e.g., 50" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Volume</label>
+                        <input type="text" class="form-control" id="productVolume" placeholder="e.g., 330ml">
+                    </div>
+                    <div class="form-group">
+                        <label>Description *</label>
+                        <textarea class="form-control" id="productDescription" placeholder="Enter product description" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Status *</label>
+                        <select class="form-control" id="productStatus" required>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" onclick="closeModal('productModal')">Cancel</button>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-save"></i> Save Product
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- News Modal -->
+    <div class="modal" id="newsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="newsModalTitle">Create News Article</h3>
+                <button class="btn-close" onclick="closeModal('newsModal')">&times;</button>
+            </div>
+            <form id="newsForm">
+                <div class="modal-body">
+                    <input type="hidden" id="newsId">
+                    <div class="form-group">
+                        <label>Headline *</label>
+                        <input type="text" class="form-control" id="newsTitle" placeholder="Enter news headline" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Category *</label>
+                        <select class="form-control" id="newsCategory" required>
+                            <option value="">Select Category</option>
+                            <option value="company">Company News</option>
+                            <option value="products">Product Launch</option>
+                            <option value="awards">Awards & Recognition</option>
+                            <option value="expansion">Business Expansion</option>
+                            <option value="partnerships">Partnerships</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Content *</label>
+                        <textarea class="form-control" id="newsContent" placeholder="Write your news article..." required style="min-height: 150px;"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Author *</label>
+                        <input type="text" class="form-control" id="newsAuthor" placeholder="Author name" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" onclick="closeModal('newsModal')">Cancel</button>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-paper-plane"></i> Publish News
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Announcement Modal -->
+    <div class="modal" id="announcementModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="announcementModalTitle">Post Announcement</h3>
+                <button class="btn-close" onclick="closeModal('announcementModal')">&times;</button>
+            </div>
+            <form id="announcementForm">
+                <div class="modal-body">
+                    <input type="hidden" id="announcementId">
+                    <div class="form-group">
+                        <label>Title *</label>
+                        <input type="text" class="form-control" id="announcementTitle" placeholder="Enter announcement title" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Priority *</label>
+                        <select class="form-control" id="announcementPriority" required>
+                            <option value="low">Low Priority</option>
+                            <option value="medium">Medium Priority</option>
+                            <option value="high">High Priority</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Category *</label>
+                        <select class="form-control" id="announcementCategory" required>
+                            <option value="">Select Category</option>
+                            <option value="general">General</option>
+                            <option value="hr">Human Resources</option>
+                            <option value="operations">Operations</option>
+                            <option value="safety">Safety</option>
+                            <option value="events">Events</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Content *</label>
+                        <textarea class="form-control" id="announcementContent" placeholder="Enter announcement details..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Expiry Date</label>
+                        <input type="date" class="form-control" id="announcementExpiry">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" onclick="closeModal('announcementModal')">Cancel</button>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-bullhorn"></i> Post Announcement
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="assets/js/admin-dashboard.js"></script>
+</body>
+</html>
